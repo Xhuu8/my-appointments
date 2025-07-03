@@ -1,5 +1,8 @@
 @extends('layouts.form')
 
+@section('title', 'Register')
+
+{{-- registro con bootstrap --}}
 {{-- generado por laravel/ui --}}
 {{-- @section('content')
 <div class="container">

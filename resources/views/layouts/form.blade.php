@@ -35,7 +35,7 @@
                     <div class="navbar-collapse-header d-md-none">
                         <div class="row">
                             <div class="col-6 collapse-brand">
-                                <a href="../index.html">
+                                <a href="{{ url('http://my-appointments.test/') }}">
                                     <img src="{{ asset('img/brand/blue.png')}}">
                                 </a>
                             </div>
@@ -97,7 +97,9 @@
                 <div class="header-body text-center mb-7">
                     <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-6">
-                            <h1 class="text-white">Welcome!</h1>
+                            <h1 class="text-white">
+                                @yield('title', 'Welcome to Argon Dashboard')
+                            </h1>
                             <p class="text-lead text-light">Use these awesome forms to login or create new account in
                                 your project for free.</p>
                         </div>
@@ -120,8 +122,8 @@
             <div class="row align-items-center justify-content-xl-between">
                 <div class="col-xl-6">
                     <div class="copyright text-center text-xl-left text-muted">
-                        &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1"
-                            target="_blank">Creative Tim</a>
+                        &copy; 2018 <a href="{{ route('home') }}" class="font-weight-bold ml-1" target="_blank">{{
+                            config('app.name') }}</a>
                     </div>
                 </div>
                 <div class="col-xl-6">
