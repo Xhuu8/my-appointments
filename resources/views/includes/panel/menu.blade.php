@@ -38,7 +38,6 @@
             <i class="ni ni-user-run text-red"></i> Logout
         </a>
     </li>
-
 </ul>
 <!-- Divider -->
 <hr class="my-3">
