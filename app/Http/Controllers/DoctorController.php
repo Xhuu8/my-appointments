@@ -72,7 +72,7 @@ class DoctorController extends Controller
     public function index()
     {
         // Return the view with the list of doctors
-        $doctors = User::where('role', 'doctor')->get();
+        $doctors = User::where('role', 'doctor')->orderBy('id')->cursorPaginate(5);
         // $doctors = User::all();
         // dd($doctors);
         return view('doctors.index', compact('doctors'));

@@ -23,6 +23,11 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $roles = [
+            'doctor' => 'Doctor',
+            'admin' => 'Admin',
+            'patient' => 'Patient'
+        ];
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
@@ -36,7 +41,7 @@ class UserFactory extends Factory
             'state' => fake()->state(),
             'country' => fake()->country(),
             'avatar' => fake()->imageUrl(640, 480, 'people', true, fake()->name()),
-            'role' => 'doctor', // Default role
+            'role' => fake()->randomElement($roles), // Default role
             'is_active' => true, // Default active status
         ];
     }
