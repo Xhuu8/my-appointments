@@ -24,9 +24,9 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $roles = [
-            'doctor' => 'Doctor',
-            'admin' => 'Admin',
-            'patient' => 'Patient'
+            'doctor' => 'doctor',
+            'admin' => 'admin',
+            'patient' => 'patient'
         ];
         return [
             'name' => fake()->name(),

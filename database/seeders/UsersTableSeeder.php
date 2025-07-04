@@ -15,5 +15,21 @@ class UsersTableSeeder extends Seeder
     {
         // Create 10 users with the factory
         User::factory(100)->create();
+
+        // Create a specific user with the factory
+        User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'xhuxho.farmavalue@gmail.com',
+            'password' => bcrypt('12398752'),
+            'role' => 'admin',
+            'is_active' => true,
+            'identification' => '1234567890',
+            'phone' => '1234567890',
+            'address' => '123 Main St',
+            'city' => 'City',
+            'state' => 'State',
+            'country' => 'Country',
+            'avatar' => 'https://example.com/avatar.jpg',
+        ]);
     }
 }
