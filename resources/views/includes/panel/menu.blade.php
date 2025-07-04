@@ -23,7 +23,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('doctors.index') }}">
             <i class="ni ni-single-02 text-orange"></i> Medicos
         </a>
     </li>
@@ -45,12 +45,12 @@
 <!-- Navigation -->
 <ul class="navbar-nav mb-md-3">
     <li class="nav-item">
-        <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
+        <a class="nav-link" href="#">
             <i class="ni ni-collection text-green"></i> Frecuencia de citas
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
+        <a class="nav-link" href="#">
             <i class="ni ni-spaceship text-blue "></i> Medicos más activos
         </a>
     </li>

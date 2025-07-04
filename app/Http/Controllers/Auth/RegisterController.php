@@ -63,10 +63,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        // dd($data);
+
+        $user = new User();
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = Hash::make($data['password']);
+        $user->role = 'patient'; // Default role for new users
+        $user->is_active = true; // Default active status
+        $user->identification = $data['identification'] ?? null;
+        $user->phone = $data['phone'] ?? null;
+        $user->address = $data['address'] ?? null;
+        $user->city = $data['city'] ?? null;
+        $user->state = $data['state'] ?? null;
+        $user->country = $data['country'] ?? null;
+        $user->avatar = $data['avatar'] ?? null;
+        $user->email_verified_at = now(); // Set email verification timestamp
+        $user->remember_token = $data['remember_token'] ?? null;
+        $user->created_at = now();
+        $user->updated_at = now();
+        $user->save();
+        return $user;
     }
 }
