@@ -7,8 +7,8 @@
                 <h3 class="mb-0">Listado</h3>
             </div>
             <div class="col text-right">
-                <a href="{{ route('doctors.create') }}" class="btn btn-sm btn-success">
-                    Nueva Doctor
+                <a href="{{ route('patients.create') }}" class="btn btn-sm btn-success">
+                    Nueva Paciente
                 </a>
             </div>
         </div>
@@ -36,22 +36,22 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($doctors as $doctor)
+                @foreach ($patients as $patient)
                 <tr>
                     <th scope="row">
-                        {{ $doctor->name }}
+                        {{ $patient->name }}
                     </th>
                     <td>
-                        {{ $doctor->email }}
+                        {{ $patient->email }}
                     </td>
                     <td>
-                        {{ $doctor->identification }}
+                        {{ $patient->identification }}
                     </td>
                     <td>
                         <div class="container col-12 d-flex justify-content-center">
-                            <a href="{{ route('doctors.edit',$doctor) }}" class="btn btn-sm btn-primary">Editar</a>
+                            <a href="{{ route('patients.edit',$patient) }}" class="btn btn-sm btn-primary">Editar</a>
 
-                            <form action="{{ route('doctors.destroy',$doctor) }}" method="post">
+                            <form action="{{ route('patients.destroy',$patient) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
