@@ -24,17 +24,7 @@
         @endif
         <form action="{{ route('specialties.store') }}" method="post">
             @csrf
-            <div class="form-group">
-                <label for="name">Nombre de la especialidad</label>
-                <input type="text" class="form-control" id="name" name="name"
-                    placeholder="Ingrese el nombre de la especialidad" required>
-            </div>
-            <div class="form-group">
-                <label for="description">Descripción</label>
-                <textarea class="form-control" id="description" name="description"
-                    placeholder="Ingrese una descripción de la especialidad" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-sm  btn-primary">Guardar</button>
+            @include('specialties.form')
         </form>
     </div>
 </div>

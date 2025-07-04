@@ -83,6 +83,7 @@
         </div>
     </nav>
     <!-- Main content -->
+
     <div class="main-content">
         <!-- Top navbar -->
         <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
@@ -222,6 +223,10 @@
             @include('includes.panel.footer')
         </div>
     </div>
+    <form action="{{ route('logout') }}" method="post" id="formLogout" class="d-none">
+        @csrf
+        <input type="hidden" name="_method" value="POST">
+    </form>
     <!-- Argon Scripts -->
     <!-- Core -->
     <script src="{{ asset ('vendor/jquery/dist/jquery.min.js')}}"></script>

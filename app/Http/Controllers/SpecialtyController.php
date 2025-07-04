@@ -11,6 +11,14 @@ class SpecialtyController extends Controller
     {
         $this->middleware('auth');
     }
+
+    private function validateRequest(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|min:3',
+            'description' => 'nullable|string|max:1000',
+        ]);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -35,12 +43,9 @@ class SpecialtyController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $request->validate([
-            'name' => 'required|string|max:255|min:3',
-            'description' => 'nullable|string|max:1000',
-        ]);
 
 
+        $this->validateRequest($request);
         Specialty::create($request->all());
 
         return redirect()->route('specialties.index')->with('success', 'Specialty created successfully.');
@@ -60,10 +65,7 @@ class SpecialtyController extends Controller
      */
     public function update(Request $request, Specialty $specialty)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|min:3',
-            'description' => 'nullable|string|max:1000',
-        ]);
+        $this->validateRequest($request);
 
         $specialty->update($request->all());
 
@@ -76,7 +78,8 @@ class SpecialtyController extends Controller
     public function destroy(Specialty $specialty)
     {
         $specialty->delete();
+        $mensage = 'La especialidad ' . $specialty->name . ' ha sido eliminada correctamente.';
 
-        return redirect()->route('specialties.index')->with('success', 'Specialty deleted successfully.');
+        return redirect()->route('specialties.index')->with('success', $mensage);
     }
 }
