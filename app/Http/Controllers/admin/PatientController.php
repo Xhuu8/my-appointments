@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Models\User;
-use App\Models\Specialty;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class DoctorController extends Controller
+class PatientController extends Controller
 {
     public function __construct()
     {
@@ -19,9 +19,9 @@ class DoctorController extends Controller
      * @var array
      */
     protected $roles = [
-        'doctor' => 'Doctor',
-        'admin' => 'Admin',
-        'patient' => 'Patient',
+        'doctor' => 'doctor',
+        'admin' => 'admin',
+        'patient' => 'patient',
     ];
     /**
      * Validate the request data.
@@ -71,11 +71,11 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        // Return the view with the list of doctors
-        $doctors = User::where('role', 'doctor')->orderBy('id')->cursorPaginate(5);
-        // $doctors = User::all();
-        // dd($doctors);
-        return view('doctors.index', compact('doctors'));
+        // Return the view with the list of patients
+        $patients = User::where('role', 'patient')->orderBy('id')->cursorPaginate(5);
+        // $patients = User::all();
+        // dd($patients);
+        return view('patients.index', compact('patients'));
     }
 
     /**
@@ -84,7 +84,9 @@ class DoctorController extends Controller
     public function create()
     {
         $roles = $this->roles;
-        return view('doctors.create', compact('roles'));
+        // Get all specialties
+        // dd($roles);
+        return view('patients.create', compact('roles'));
     }
 
     /**
@@ -97,29 +99,29 @@ class DoctorController extends Controller
         // dd($this->validationsReques($request));
         // dd($request->all());
         $this->validationsReques($request, null);
-        // Create a new doctor
+        // Create a new patient
         // Validate the request data
         $pas = isset($request->password) ? bcrypt($request->password) : bcrypt('12345678');
 
-        // Create a new doctor
-        $doctor = new User();
-        $doctor->name = $request->name;
-        $doctor->email = $request->email;
-        $doctor->identification = $request->identification;
-        $doctor->phone = $request->phone;
-        $doctor->address = $request->address;
-        $doctor->city = $request->city;
-        $doctor->state = $request->state;
-        $doctor->country = $request->country;
-        $doctor->avatar = $request->avatar;
-        $doctor->role = 'doctor';
-        $doctor->is_active = $request->is_active ? true : false;
-        $doctor->password = isset($request->password) ? bcrypt($request->password) : bcrypt('12345678');
-        // dd($doctor);
-        $doctor->save();
+        // Create a new patient
+        $patient = new User();
+        $patient->name = $request->name;
+        $patient->email = $request->email;
+        $patient->identification = $request->identification;
+        $patient->phone = $request->phone;
+        $patient->address = $request->address;
+        $patient->city = $request->city;
+        $patient->state = $request->state;
+        $patient->country = $request->country;
+        $patient->avatar = $request->avatar;
+        $patient->role = 'patient';
+        $patient->is_active = $request->is_active ? true : false;
+        $patient->password = isset($request->password) ? bcrypt($request->password) : bcrypt('12345678');
+        // dd($patient);
+        $patient->save();
 
-        // Redirect to the doctors index with a success message
-        return redirect()->route('doctors.index')->with('success', 'Doctor created successfully.');
+        // Redirect to the patients index with a success message
+        return redirect()->route('patients.index')->with('success', 'patient created successfully.');
     }
 
     /**
@@ -127,11 +129,11 @@ class DoctorController extends Controller
      */
     public function show(string $id)
     {
-        // Find the doctor by ID
-        $doctor = User::findOrFail($id);
+        // Find the patient by ID
+        $patient = User::findOrFail($id);
 
-        // Return the view with the doctor's details
-        return view('doctors.show', compact('doctor'));
+        // Return the view with the patient's details
+        return view('patients.show', compact('patient'));
     }
 
     /**
@@ -139,11 +141,11 @@ class DoctorController extends Controller
      */
     public function edit(string $id)
     {
-        // Find the doctor by ID
-        $doctor = User::findOrFail($id);
+        // Find the patient by ID
+        $patient = User::findOrFail($id);
         $roles = $this->roles;
-        // Return the view to edit the doctor
-        return view('doctors.edit', compact('doctor', 'roles'));
+        // Return the view to edit the patient
+        return view('patients.edit', compact('patient', 'roles'));
     }
 
     /**
@@ -154,28 +156,28 @@ class DoctorController extends Controller
         // Validate the request data
         $this->validationsReques($request, $id);
 
-        // Find the doctor by ID
-        $doctor = User::findOrFail($id);
-        $doctor->name = $request->name;
-        $doctor->email = $request->email;
-        $doctor->identification = $request->identification;
-        $doctor->phone = $request->phone;
-        $doctor->address = $request->address;
-        $doctor->city = $request->city;
-        $doctor->state = $request->state;
-        $doctor->country = $request->country;
-        $doctor->avatar = $request->avatar;
-        $doctor->role = $request->role;
-        $doctor->is_active = $request->is_active ? true : false;
+        // Find the patient by ID
+        $patient = User::findOrFail($id);
+        $patient->name = $request->name;
+        $patient->email = $request->email;
+        $patient->identification = $request->identification;
+        $patient->phone = $request->phone;
+        $patient->address = $request->address;
+        $patient->city = $request->city;
+        $patient->state = $request->state;
+        $patient->country = $request->country;
+        $patient->avatar = $request->avatar;
+        $patient->role = $request->role;
+        $patient->is_active = $request->is_active ? true : false;
         // If a new password is provided, hash it
         if ($request->filled('password')) {
-            $doctor->password = bcrypt($request->password) ?: bcrypt('12345678');
+            $patient->password = bcrypt($request->password) ?: bcrypt('12345678');
         }
-        // Save the updated doctor
-        $doctor->save();
+        // Save the updated patient
+        $patient->save();
 
-        // Redirect to the doctors index with a success message
-        return redirect()->route('doctors.index')->with('success', 'Doctor updated successfully.');
+        // Redirect to the patients index with a success message
+        return redirect()->route('patients.index')->with('success', 'patient updated successfully.');
     }
 
     /**
@@ -183,13 +185,13 @@ class DoctorController extends Controller
      */
     public function destroy(string $id)
     {
-        // Find the doctor by ID
-        $doctor = User::findOrFail($id);
+        // Find the patient by ID
+        $patient = User::findOrFail($id);
 
-        // Delete the doctor
-        $doctor->delete();
+        // Delete the patient
+        $patient->delete();
 
-        // Redirect to the doctors index with a success message
-        return redirect()->route('doctors.index')->with('success', 'Doctor deleted successfully.');
+        // Redirect to the patients index with a success message
+        return redirect()->route('patients.index')->with('success', 'patient deleted successfully.');
     }
 }
