@@ -59,7 +59,7 @@
 @if (auth()->user()->isRole() == 'doctor')
 <ul class="navbar-nav">
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('home') }}">
+        <a class="nav-link" href="{{ route('doctor.schedule.edit') }}">
             <i class="ni ni-tv-2 text-primary"></i> Gestionar horarios
         </a>
     </li>

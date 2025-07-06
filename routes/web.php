@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\DoctorController;
 use App\Http\Controllers\admin\PatientController;
 use App\Http\Controllers\admin\SpecialtyController;
+use App\Http\Controllers\doctor\ScheduleController;
 
 
 /*
@@ -42,3 +43,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // patient routes
     Route::resource('patients', PatientController::class);
 });
+Route::middleware(['auth', 'doctor'])->group(function () {
+    // doctor schedule routes
+    Route::get('/doctor/schedule/edit', [ScheduleController::class, 'edit'])->name('doctor.schedule.edit');
+    Route::put('/doctor/schedule/{schedule}', [ScheduleController::class, 'update'])->name('doctor.schedule.update');
+    Route::delete('/doctor/schedule/{schedule}', [ScheduleController::class, 'destroy'])->name('doctor.schedule.destroy');
+});
+// Route::middleware(['auth', 'patient'])->group(function () {
+//     // patient routes
+//     Route::get('/patient/schedule', [ScheduleController::class, 'index'])->name('patient.schedule.index');
+//     Route::get('/patient/schedule/create', [ScheduleController::class, 'create'])->name('patient.schedule.create');
+//     Route::post('/patient/schedule', [ScheduleController::class, 'store'])->name('patient.schedule.store');
+//     Route::get('/patient/schedule/{schedule}', [ScheduleController::class, 'show'])->name('patient.schedule.show');
+//     Route::get('/patient/schedule/{schedule}/edit', [ScheduleController::class, 'edit'])->name('patient.schedule.edit');
+//     Route::put('/patient/schedule/{schedule}', [ScheduleController::class, 'update'])->name('patient.schedule.update');
+//     Route::delete('/patient/schedule/{schedule}', [ScheduleController::class, 'destroy'])->name('patient.schedule.destroy');
+// });

@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin User',
             'email' => 'xhuxho.farmavalue@gmail.com',
-            'password' => bcrypt('12398752'),
+            'password' => bcrypt('12345678'),
             'role' => 'admin',
             'is_active' => true,
             'identification' => '1234567890',
