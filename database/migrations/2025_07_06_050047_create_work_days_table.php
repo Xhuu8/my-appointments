@@ -17,8 +17,8 @@ return new class extends Migration
             $table->boolean('active')->default(true);
             $table->time('morning_start')->nullable();
             $table->time('morning_end')->nullable();
-            $table->time('afternoom_start')->nullable();
-            $table->time('afternoom_end')->nullable();
+            $table->time('afternoon_start')->nullable();
+            $table->time('afternoon_end')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

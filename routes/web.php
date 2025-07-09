@@ -46,7 +46,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'doctor'])->group(function () {
     // doctor schedule routes
     Route::get('/doctor/schedule/edit', [ScheduleController::class, 'edit'])->name('doctor.schedule.edit');
-    Route::put('/doctor/schedule/{schedule}', [ScheduleController::class, 'update'])->name('doctor.schedule.update');
+    Route::post('/doctor/schedule', [ScheduleController::class, 'store'])->name('doctor.schedule.store');
     Route::delete('/doctor/schedule/{schedule}', [ScheduleController::class, 'destroy'])->name('doctor.schedule.destroy');
 });
 // Route::middleware(['auth', 'patient'])->group(function () {
