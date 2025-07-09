@@ -4,6 +4,7 @@ namespace App\Http\Controllers\doctor;
 
 use App\Http\Controllers\Controller;
 use App\Models\WorkDay;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -14,9 +15,17 @@ class ScheduleController extends Controller
     public function edit()
     {
         // Logic to show the edit form for the doctor's schedule
-        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-        // dd($days);
-        return view('doctors.schedule.edit', compact('days'));
+        $days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+        $workDays = WorkDay::where('user_id', auth()->user()->id)->get();
+        $workDays->map(function ($workDay) { // Format the time fields to a more readable format
+            $workDay->morning_start = (new Carbon($workDay->morning_start))->format('g:i A');
+            $workDay->morning_end = (new Carbon($workDay->morning_end))->format('g:i A');
+            $workDay->afternoon_start = (new Carbon($workDay->afternoon_start))->format('g:i A');
+            $workDay->afternoon_end = (new Carbon($workDay->afternoon_end))->format('g:i A');
+            return $workDay;
+        });
+        // dd($workDays)->too_array();
+        return view('doctors.schedule.edit', compact('days', 'workDays'));
     }
 
     /**
@@ -25,22 +34,31 @@ class ScheduleController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        $active = $request->input('active') ?: [];
+        $morning_start = $request->input('morning_start');
+        $morning_end = $request->input('morning_end');
+        $afternoon_start = $request->input('afternoon_start');
+        $afternoon_end = $request->input('afternoon_end');
+        // dd($morning_start, $morning_end, $afternoon_start, $afternoon_end, $active);
 
-        foreach ($request['active'] as $active) {
+        for ($index = 0; $index < 7; $index++) {
             WorkDay::updateOrCreate(
                 [
-                    'day' => $active,
+                    'day' => $index,
                     'user_id' => auth()->user()->id,
                 ],
                 [
-                    'is_active' => true,
-                    'morning_start' => $request['morning_start'][$active],
-                    'morning_end' => $request['morning_end'][$active],
-                    'afternoon_start' => $request['afternoon_start'][$active],
-                    'afternoon_end' => $request['afternoon_end'][$active],
+                    'active' => in_array($index, $active),
+                    'morning_start' => $morning_start[$index],
+                    'morning_end' => $morning_end[$index],
+                    'afternoon_start' => $afternoon_start[$index],
+                    'afternoon_end' => $afternoon_end[$index],
                 ]
             );
         }
+
+
+
 
 
         // Redirect or return a response after storing the schedule
