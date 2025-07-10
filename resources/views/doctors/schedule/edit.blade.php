@@ -45,7 +45,6 @@
             <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">Numero</th>
                         <th scope="col">Dia</th>
                         <th scope="col">activo</th>
                         <th scope="col">Turno Matutino</th>
@@ -56,9 +55,6 @@
                     @foreach ($workDays as $key => $workDay)
 
                     <tr>
-                        <th scope="row">
-                            {{ $key }}
-                        </th>
                         <th scope="row">
                             {{ $days[$key] }}
                         </th>

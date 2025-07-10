@@ -12,10 +12,12 @@ class ScheduleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    public $days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+
     public function edit()
     {
         // Logic to show the edit form for the doctor's schedule
-        $days = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+        $days = $this->days;
         $workDays = WorkDay::where('user_id', auth()->user()->id)->get();
         $workDays->map(function ($workDay) { // Format the time fields to a more readable format
             $workDay->morning_start = (new Carbon($workDay->morning_start))->format('g:i A');
@@ -45,10 +47,10 @@ class ScheduleController extends Controller
         $errors = [];
         for ($index = 0; $index < 7; $index++) {
             if ($morning_start[$index] >= $morning_end[$index] && in_array($index, $active)) {
-                $errors[] = "la hora de inicio no puede ser mayor o igual al hora de salida en la fila numero: $index en turno matutino";
+                $errors[] = "la hora de inicio no puede ser mayor o igual al hora de salida del dia " . $this->days[$index] . " en turno matutino";
             }
             if ($afternoon_start[$index] >= $afternoon_end[$index] && in_array($index, $active)) {
-                $errors[] = "la hora de inicio no puede ser mayor o igual al hora de salida en la fila numero: $index en turno despertino";
+                $errors[] = "la hora de inicio no puede ser mayor o igual al hora de salida del dia " . $this->days[$index] . " en turno despertino";
                 // Skip this iteration if any time data is missing
             }
 
