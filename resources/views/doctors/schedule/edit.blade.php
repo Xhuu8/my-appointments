@@ -19,6 +19,19 @@
                 </button>
             </div>
             @endif
+            @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>¡Error!</strong> Por favor corrige los siguientes errores:
+                <ul>
+                    @foreach (session('error') as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
             <div class="col text-right">
                 <button type="submit" class="btn btn-sm btn-success">
                     Guardar Cambios
@@ -32,6 +45,7 @@
             <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                     <tr>
+                        <th scope="col">Numero</th>
                         <th scope="col">Dia</th>
                         <th scope="col">activo</th>
                         <th scope="col">Turno Matutino</th>
@@ -42,6 +56,9 @@
                     @foreach ($workDays as $key => $workDay)
 
                     <tr>
+                        <th scope="row">
+                            {{ $key }}
+                        </th>
                         <th scope="row">
                             {{ $days[$key] }}
                         </th>
@@ -59,11 +76,12 @@
                                 DE
                                 <div class="col">
                                     <select name="morning_start[]" id="morning_start[]" class="form-control">
-                                        @for ($i = 5; $i <=11; $i++) <option value="{{ $i }}:00" @if($workDay->
+                                        @for ($i = 5; $i <=11; $i++) <option value="{{ ($i<10 ? '0' :'').$i }}:00"
+                                            @if($workDay->
                                             morning_start == $i.":00 AM") selected @endif>
-                                            {{ $i }}:00 AM
-                                            </option>
-                                            <option value="{{ $i }}:30" @if($workDay->morning_start== $i.":30 AM")
+                                            {{ $i }}:00 AM </option>
+                                            <option value="{{ ($i<10 ? '0' :'').$i }}:30" @if($workDay->morning_start==
+                                                $i.":30 AM")
                                                 selected @endif>
                                                 {{ $i }}:30 AM
                                             </option>
@@ -73,10 +91,12 @@
                                 A
                                 <div class="col">
                                     <select name="morning_end[]" id="morning_end[]" class="form-control">
-                                        @for ($i = 5; $i <= 11; $i++) <option value="{{ $i }}:00" @if($workDay->
-                                            morning_end == $i.":00 AM") selected @endif>{{ $i }}:00 PM</option>
-                                            <option value="{{ $i }}:30" @if($workDay->morning_end == $i.":30 AM")
-                                                selected @endif>{{ $i }}:30 PM</option>
+                                        @for ($i = 5; $i <= 11; $i++) <option value="{{ ($i<10 ? '0' :'').$i }}:00"
+                                            @if($workDay->
+                                            morning_end == $i.":00 AM") selected @endif>{{ $i }}:00 AM</option>
+                                            <option value="{{ ($i<10 ? '0' :'').$i }}:30" @if($workDay->morning_end ==
+                                                $i.":30 AM")
+                                                selected @endif>{{ $i }}:30 AM</option>
                                             @endfor
                                     </select>
                                 </div>

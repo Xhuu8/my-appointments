@@ -41,7 +41,17 @@ class ScheduleController extends Controller
         $afternoon_end = $request->input('afternoon_end');
         // dd($morning_start, $morning_end, $afternoon_start, $afternoon_end, $active);
 
+
+        $errors = [];
         for ($index = 0; $index < 7; $index++) {
+            if ($morning_start[$index] >= $morning_end[$index] && in_array($index, $active)) {
+                $errors[] = "la hora de inicio no puede ser mayor o igual al hora de salida en la fila numero: $index en turno matutino";
+            }
+            if ($afternoon_start[$index] >= $afternoon_end[$index] && in_array($index, $active)) {
+                $errors[] = "la hora de inicio no puede ser mayor o igual al hora de salida en la fila numero: $index en turno despertino";
+                // Skip this iteration if any time data is missing
+            }
+
             WorkDay::updateOrCreate(
                 [
                     'day' => $index,
@@ -62,7 +72,11 @@ class ScheduleController extends Controller
 
 
         // Redirect or return a response after storing the schedule
-        return back()->with('success', 'Schedule updated successfully.');
+        if (count($errors) > 0) {
+            return back()->with('error', $errors);
+        } else {
+            return back()->with('success', 'Guadado con Exito');
+        }
     }
 
     /**
