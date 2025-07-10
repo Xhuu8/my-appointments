@@ -80,7 +80,7 @@
 @if (auth()->user()->isRole() == 'patient')
 <ul class="navbar-nav">
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('specialties.index') }}">
+        <a class="nav-link" href="{{ route('patient.appointments.create') }}">
             <i class="ni ni-planet text-blue"></i> Agendar cita
         </a>
     </li>

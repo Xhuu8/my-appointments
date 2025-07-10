@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\DoctorController;
 use App\Http\Controllers\admin\PatientController;
 use App\Http\Controllers\admin\SpecialtyController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\doctor\ScheduleController;
 
 
@@ -49,13 +50,11 @@ Route::middleware(['auth', 'doctor'])->group(function () {
     Route::post('/doctor/schedule', [ScheduleController::class, 'store'])->name('doctor.schedule.store');
     Route::delete('/doctor/schedule/{schedule}', [ScheduleController::class, 'destroy'])->name('doctor.schedule.destroy');
 });
-// Route::middleware(['auth', 'patient'])->group(function () {
-//     // patient routes
-//     Route::get('/patient/schedule', [ScheduleController::class, 'index'])->name('patient.schedule.index');
-//     Route::get('/patient/schedule/create', [ScheduleController::class, 'create'])->name('patient.schedule.create');
-//     Route::post('/patient/schedule', [ScheduleController::class, 'store'])->name('patient.schedule.store');
-//     Route::get('/patient/schedule/{schedule}', [ScheduleController::class, 'show'])->name('patient.schedule.show');
-//     Route::get('/patient/schedule/{schedule}/edit', [ScheduleController::class, 'edit'])->name('patient.schedule.edit');
-//     Route::put('/patient/schedule/{schedule}', [ScheduleController::class, 'update'])->name('patient.schedule.update');
-//     Route::delete('/patient/schedule/{schedule}', [ScheduleController::class, 'destroy'])->name('patient.schedule.destroy');
-// });
+Route::middleware(['auth', 'patient'])->group(function () {
+    // patient routes
+    Route::get('/patient/appointments/create', [AppointmentController::class, 'create'])->name('patient.appointments.create');
+    Route::post('/patient/appointments', [AppointmentController::class, 'store'])->name('patient.appointments.store');
+    Route::get('/patient/appointments/{appointments}/edit', [AppointmentController::class, 'edit'])->name('patient.appointments.edit');
+    Route::put('/patient/appointments/{appointments}', [AppointmentController::class, 'update'])->name('patient.appointments.update');
+    Route::delete('/patient/appointments/{appointments}', [AppointmentController::class, 'destroy'])->name('patient.appointments.destroy');
+});

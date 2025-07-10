@@ -5,11 +5,8 @@
         <div class="row align-items-center">
             <div class="col">
                 <h3 class="mb-0">
-                    Crear Nuevo Doctor
+                    Registrar cita
                 </h3>
-            </div>
-            <div class="col text-right">
-                <a href="{{ route('doctors.index') }}" class="btn btn-sm  btn-secondary">Cancelar</a>
             </div>
         </div>
     </div>
@@ -21,10 +18,13 @@
             @endforeach
         </ul>
         @endif
-        <form action="{{ route('doctors.store') }}" method="post">
+        <form action="{{ route('patient.appointments.store') }}" method="post">
             @csrf
-            @include('doctors.form')
+            @include('patients.form')
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script src="{{ asset('vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 @endsection
