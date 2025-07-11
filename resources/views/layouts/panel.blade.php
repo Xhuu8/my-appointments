@@ -16,6 +16,7 @@
     <link href="{{ asset ('vendor/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
     <!-- Argon CSS -->
     <link type="text/css" href="{{ asset ('css/argon.css')}}" rel="stylesheet">
+    @yield('css')
 </head>
 
 <body>

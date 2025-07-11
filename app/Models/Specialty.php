@@ -15,6 +15,7 @@ class Specialty extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        // con withTimestamps() es para gestionar la hora
+        return $this->belongsToMany(User::class)->withTimestamps();;
     }
 }

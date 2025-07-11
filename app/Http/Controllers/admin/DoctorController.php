@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Specialty;
 
 class DoctorController extends Controller
 {
@@ -79,7 +80,9 @@ class DoctorController extends Controller
     public function create()
     {
         $roles = $this->roles;
-        return view('doctors.create', compact('roles'));
+        $specialties = Specialty::all();
+        // dd($specialties);
+        return view('doctors.create', compact('roles', 'specialties'));
     }
 
     /**
@@ -90,7 +93,7 @@ class DoctorController extends Controller
 
         // Validate the request data
         // dd($this->validationsReques($request));
-        // dd($request->all());
+        //dd($request->all());
         $this->validationsReques($request, null);
         // Create a new doctor
         // Validate the request data
@@ -112,6 +115,10 @@ class DoctorController extends Controller
         $doctor->password = isset($request->password) ? bcrypt($request->password) : bcrypt('12345678');
         // dd($doctor);
         $doctor->save();
+
+        //crea y usa la relacion del modelo para registrar el array de specialdades con attach
+
+        $doctor->specialties()->attach($request->input('specialties'));
 
         // Redirect to the doctors index with a success message
         return redirect()->route('doctors.index')->with('success', 'Doctor created successfully.');
@@ -137,8 +144,12 @@ class DoctorController extends Controller
         // Find the doctor by ID
         $doctor = User::findOrFail($id);
         $roles = $this->roles;
+        $specialties = Specialty::all();
+        //con esta lines hacemo una busqueda atraves de la relacion del modelo usuarios y con "pluck" busca y trae los datos solicitados en un array que tengan realacion con el usuario
+        $specialty_ids = $doctor->specialties()->pluck('specialties.id');
+        // dd($specialty_ids);
         // Return the view to edit the doctor
-        return view('doctors.edit', compact('doctor', 'roles'));
+        return view('doctors.edit', compact('doctor', 'roles', 'specialties', 'specialty_ids'));
     }
 
     /**
@@ -168,6 +179,9 @@ class DoctorController extends Controller
         }
         // Save the updated doctor
         $doctor->save();
+
+        // con esta linea lo que hace es por medio del modelo y relacion es buscar y actualizar los registros en la tabla de relaciones
+        $doctor->specialties()->sync($request->input('specialties'));
 
         // Redirect to the doctors index with a success message
         return redirect()->route('doctors.index')->with('success', 'Doctor updated successfully.');

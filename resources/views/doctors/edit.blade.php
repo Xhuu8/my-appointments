@@ -1,4 +1,7 @@
 @extends('layouts.panel')
+@section('css')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+@endsection
 @section('content')
 <div class="card shadow">
     <div class="card-header border-0">
@@ -28,4 +31,14 @@
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+{{-- con la directiva de blade @json() podemos convertir el array de php a formato script --}}
+<script>
+    $(document).ready(()=>{
+        console.log('specialty_ids')
+        $('#specialties').selectpicker('val', @json($specialty_ids));
+    });
+</script>
 @endsection

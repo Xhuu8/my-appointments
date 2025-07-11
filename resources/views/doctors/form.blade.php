@@ -91,4 +91,18 @@
             Inactivo</option>
     </select>
 </div>
-<button type="submit" class="btn btn-sm  btn-primary">Guardar</button>
+<div class="form-grup">
+    <label for="is_active">Especialidades</label>
+    <select name="specialties[]" id="specialties" class="form-control selectpicker" multiple data-style="btn-default"
+        title="secciona una o mas">
+        @foreach ($specialties as $specialty)
+
+        <option value="{{ $specialty->id }}">{{ $specialty->name }}</option>
+        @endforeach
+    </select>
+</div>
+
+<div class="form-grup">
+
+    <button type="submit" class="btn btn-sm  btn-primary mt-3">Guardar</button>
+</div>
