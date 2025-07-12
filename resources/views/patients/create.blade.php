@@ -27,4 +27,19 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+<script>
+    $(function (){
+
+        $('#specialty_id').change(()=> {
+            const $specialtyId = $('#specialty_id');
+            // const specialtyId = $(this).val();
+            const uri = `/specialties/${specialtyId}/doctors`;
+            $.getJSON( uri,onDoctorLoaded );
+        });
+    });
+
+    function onDoctorLoaded (data) {
+        console.log(data);
+    }
+</script>
 @endsection

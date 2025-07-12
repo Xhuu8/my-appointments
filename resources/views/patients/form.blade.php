@@ -1,13 +1,14 @@
 <div class="form-grup">
     <label for="name">Especialidad</label>
 
-    <select class="form-control" id="specialty" name="specialty" required>
+    <select class="form-control" id="specialty_id" name="specialty_id" required>
         <option value="">Especialidad</option>
-        @foreach ($specialties as $key => $value)
-        <option value="{{ $key }}" {{ old('specialty', isset($doctor->specialty) ? $doctor->specialty : '') == $key ?
+        @foreach ($specialties as $value)
+        <option value="{{ $value->id }}" {{ old('specialty_id', isset($value->specialty) ? $value->specialty : '') ==
+            $value->id ?
             'selected' : ''
             }}>
-            {{ $value }}</option>
+            {{ $value->name }}</option>
         @endforeach
     </select>
 </div>

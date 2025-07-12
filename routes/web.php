@@ -5,9 +5,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\DoctorController;
 use App\Http\Controllers\admin\PatientController;
 use App\Http\Controllers\admin\SpecialtyController;
+use App\Http\Controllers\Api\SpecialtyController as apiSpecialty;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\doctor\ScheduleController;
-
+use App\Models\Specialty;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,11 +51,11 @@ Route::middleware(['auth', 'doctor'])->group(function () {
     Route::post('/doctor/schedule', [ScheduleController::class, 'store'])->name('doctor.schedule.store');
     Route::delete('/doctor/schedule/{schedule}', [ScheduleController::class, 'destroy'])->name('doctor.schedule.destroy');
 });
-Route::middleware(['auth', 'patient'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     // patient routes
     Route::get('/patient/appointments/create', [AppointmentController::class, 'create'])->name('patient.appointments.create');
     Route::post('/patient/appointments', [AppointmentController::class, 'store'])->name('patient.appointments.store');
-    Route::get('/patient/appointments/{appointments}/edit', [AppointmentController::class, 'edit'])->name('patient.appointments.edit');
-    Route::put('/patient/appointments/{appointments}', [AppointmentController::class, 'update'])->name('patient.appointments.update');
-    Route::delete('/patient/appointments/{appointments}', [AppointmentController::class, 'destroy'])->name('patient.appointments.destroy');
+
+    //json
+    Route::get('specialties/{specialty}/doctors', [apiSpecialty::class, 'doctors'])->name('');
 });
