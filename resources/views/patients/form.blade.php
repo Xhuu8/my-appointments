@@ -1,7 +1,7 @@
 <div class="form-grup">
     <label for="name">Especialidad</label>
 
-    <select class="form-control" id="specialty_id" name="specialty_id" required>
+    <select class="form-control" id="specialty" name="specialty_id" required>
         <option value="">Especialidad</option>
         @foreach ($specialties as $value)
         <option value="{{ $value->id }}" {{ old('specialty_id', isset($value->specialty) ? $value->specialty : '') ==

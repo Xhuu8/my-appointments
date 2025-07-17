@@ -29,16 +29,16 @@
 <script src="{{ asset('vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 <script>
     $(function (){
-
-        $('#specialty_id').change(()=> {
-            const $specialtyId = $('#specialty_id');
-            // const specialtyId = $(this).val();
-            const uri = `/specialties/${specialtyId}/doctors`;
-            $.getJSON( uri,onDoctorLoaded );
+        debugger;
+        const $specialty = $('#specialty')
+        $specialty.change(()=>{
+            const specialtyId = $specialty.val();
+            const url = `/specialties/${specialtyId}/doctors`;
+            $.getJSON(url, onDoctorsLoaded);
         });
     });
 
-    function onDoctorLoaded (data) {
+    function onDoctorsLoaded(data){
         console.log(data);
     }
 </script>
