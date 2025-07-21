@@ -27,28 +27,5 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
-<script>
-    let $doctor;
-    $(function (){
-        // debugger;
-        const $specialty = $('#specialty')
-        $doctor = $('#doctor');
-        $specialty.change(()=>{
-            const specialtyId = $specialty.val();
-            const url = `/specialties/${specialtyId}/doctors`;
-            $.getJSON(url, onDoctorsLoaded);
-        });
-    });
-
-    function onDoctorsLoaded(doctors){
-        // debugger;
-        let htmlOptions ='';
-
-        doctors.forEach(doctor => {
-            htmlOptions += `<option value="${doctor.id}">${doctor.name}</option>`;
-        });
-        $doctor.html(htmlOptions);
-        // console.log(htmlOption);
-    }
-</script>
+<script src="{{ asset('js/appointments/create.js')}}"></script>
 @endsection

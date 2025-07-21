@@ -19,13 +19,20 @@ class ScheduleController extends Controller
         // Logic to show the edit form for the doctor's schedule
         $days = $this->days;
         $workDays = WorkDay::where('user_id', auth()->user()->id)->get();
-        $workDays->map(function ($workDay) { // Format the time fields to a more readable format
-            $workDay->morning_start = (new Carbon($workDay->morning_start))->format('g:i A');
-            $workDay->morning_end = (new Carbon($workDay->morning_end))->format('g:i A');
-            $workDay->afternoon_start = (new Carbon($workDay->afternoon_start))->format('g:i A');
-            $workDay->afternoon_end = (new Carbon($workDay->afternoon_end))->format('g:i A');
-            return $workDay;
-        });
+        if (count($workDays) > 0) {
+            $workDays->map(function ($workDay) { // Format the time fields to a more readable format
+                $workDay->morning_start = (new Carbon($workDay->morning_start))->format('g:i A');
+                $workDay->morning_end = (new Carbon($workDay->morning_end))->format('g:i A');
+                $workDay->afternoon_start = (new Carbon($workDay->afternoon_start))->format('g:i A');
+                $workDay->afternoon_end = (new Carbon($workDay->afternoon_end))->format('g:i A');
+                return $workDay;
+            });
+        } else {
+            $workDays = collect();
+            for ($i = 0; $i < 7; ++$i) {
+                $workDays->push(new WorkDay());
+            }
+        }
         // dd($workDays)->too_array();
         return view('doctors.schedule.edit', compact('days', 'workDays'));
     }

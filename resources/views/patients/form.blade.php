@@ -24,15 +24,15 @@
         <div class="input-group-prepend">
             <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
         </div>
-        <input class="form-control datepicker" placeholder="Select date" type="text" value="{{ date('Y-m-d' )}}"
-            data-date-format="yyyy-mm-dd" data-date-start-date="{{ date('Y-m-d' )}}" data-date-end-date="+30d">
+        <input class="form-control datepicker" id="date" placeholder="Select date" type="text"
+            value="{{ date('Y-m-d' )}}" data-date-format="yyyy-mm-dd" data-date-start-date="{{ date('Y-m-d' )}}"
+            data-date-end-date="+30d">
     </div>
 </div>
 <div class="form-grup">
     <label for="name">Hora de atención</label>
-    <input type="text" class="form-control" id="name" name="name"
-        value="{{ old('name', isset($patient->name) ? $patient->name : '') }}"
-        placeholder="Ingrese el nombre del paciente" required>
+    <div id="hours">
+    </div>
 </div>
 <hr>
 <button type="submit" class="btn btn-sm  btn-primary">Guardar</button>
