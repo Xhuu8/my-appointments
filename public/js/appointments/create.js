@@ -33,6 +33,7 @@ const noHoursAlert = `
     }
 
     function loadHours(){
+        // alert('hey');
         const selectedDate = $date.val();
         const doctorId = $doctor.val();
         if(doctorId == null){

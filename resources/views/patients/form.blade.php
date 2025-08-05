@@ -1,9 +1,11 @@
-<div class="form-control">
-    <label for="description">Descripcion</label>
-    <input type="text" name="description" id="description" class="form-control"
-        placeholder="Describe brevemente la consulta">
-</div>
 <div class="form-row">
+    <div class="col-12">
+        <div class="form-grup">
+            <label for="description">Descripcion</label>
+            <input type="text" name="description" id="description" class="form-control"
+                placeholder="Describe brevemente la consulta">
+        </div>
+    </div>
     <div class="col-4">
         <div class="form-grup">
             <label for="name">Especialidad</label>
@@ -17,13 +19,11 @@
                 @endforeach
             </select>
         </div>
-
     </div>
     <div class="col-4">
         <div class="form-grup">
             <label for="name">Medico</label>
             <select class="form-control" id="doctor" name="doctor" required>
-
             </select>
         </div>
     </div>
@@ -43,6 +43,9 @@
 </div>
 <div class="form-grup">
     <label for="name">Hora de atención</label>
+    <div class="alert alert-info" role="alert">
+        <strong>selecciona un medico</strong>
+    </div>
     <div id="hours">
     </div>
 </div>

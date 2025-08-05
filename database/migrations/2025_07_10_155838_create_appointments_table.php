@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
+            $table->string('description');
+            $table->unsignedBigInteger('specialty_id')->nullable();
+            $table->foreign('specialty_id')->references('id')->on('specialties')->onDelete('cascade');
+            $table->unsignedBigInteger('doctor_id')->nullable();
+            $table->foreign('doctor_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('patient_id')->nullable();
+            $table->foreign('patient_id')->references('id')->on('users')->onDelete('cascade');
+            $table->date('scheduled_date');
+            $table->time('scheduled_time');
+            $table->date('type');
             $table->timestamps();
         });
     }

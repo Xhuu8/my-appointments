@@ -58,7 +58,5 @@ Route::middleware(['auth'])->group(function () {
 
     //json
     Route::get('specialties/{specialty}/doctors', [apiSpecialty::class, 'doctors']);
-    // Route::get('schedule/hours/{doctor}/{fecha}', [apiSchedule::class, 'hours']);
     Route::get('schedule/hours', [apiSchedule::class, 'hours']);
 });
-// http://my-appointments.test/schedule/hours?date=2025-07-14&doctor_id=102
